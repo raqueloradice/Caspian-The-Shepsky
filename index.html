@@ -172,6 +172,12 @@
   .signpost-label { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 1px; }
   .signpost-handle { font-size: 14px; color: rgba(32,29,24,0.72); }
 
+  /* CONTACT */
+  .contact-section .section-inner { text-align: center; }
+  .contact-section .section-head { margin-bottom: 28px; }
+  .contact-section .section-head p { max-width: 36ch; margin-inline: auto; }
+  .contact-fallback { margin: 0; font-size: 16px; color: var(--forest); }
+
   /* FOOTER */
   footer { width: 100%; background: var(--forest); padding: 32px var(--gutter) calc(32px + env(safe-area-inset-bottom)); text-align: center; border-top: 1px solid rgba(243,238,225,0.12); }
   footer p { margin: 0; font-size: 13px; color: rgba(243,238,225,0.72); }
@@ -239,6 +245,7 @@
     <a href="#gallery">Gallery</a>
     <a href="#gear">Pack List</a>
     <a href="#follow">Follow</a>
+    <a href="#contact">Contact</a>
   </div>
 </nav>
 
@@ -344,6 +351,19 @@
     </a>
   </div>
 </section>
+
+<section id="contact" class="section contact-section">
+  <div class="section-inner">
+    <div class="section-head">
+      <h2>Brand Collabs</h2>
+      <p>Interested in working with Caspian? Send an email.</p>
+    </div>
+    <div id="contact-cta" hidden>
+      <a id="contact-email" class="btn-primary" href="#contact"></a>
+    </div>
+    <noscript><p class="contact-fallback">hello (at) caspiantheshepsky (dot) com</p></noscript>
+  </div>
+</section>
 </main>
 
 <footer>
@@ -376,6 +396,14 @@
   function syncNavSurface() { nav.classList.toggle('solid', window.scrollY > 24); }
   window.addEventListener('scroll', syncNavSurface, { passive: true });
   syncNavSurface();
+
+  /* CONTACT — the address is put together here rather than written into the page,
+     so simple email scrapers reading the HTML don't find it. */
+  const contactAddress = ['hello', 'caspiantheshepsky.com'].join('@');
+  const contactLink = document.getElementById('contact-email');
+  contactLink.href = 'mailto:' + contactAddress + '?subject=' + encodeURIComponent('Collab with Caspian');
+  contactLink.textContent = contactAddress;
+  document.getElementById('contact-cta').hidden = false;
 
   /* DATA */
   /* Only products Caspian's pack has confirmed. `blurb` and `photo` are optional and
